@@ -1,44 +1,43 @@
-# NEXORA — Daily Development Log (Project Diary)
+# NEXORA — Engineering Development Log
 
-This diary records daily progress, technical decisions, and milestones achieved during the 8-week development lifecycle. It serves as an authentic progress log for review by the project guide / evaluators.
+This log tracks architectural decisions, technical specifications, and development milestones across the project lifecycle.
 
 ---
 
-## 🗓️ Week 1: Requirements, System Design & Repository Architecture
+## 🗓️ Sprint 1: Requirements, System Architecture & Repository Setup
 
-### Day 1: Project Kickoff, PRD Review & Formal SRS Specification
+### Session 1: Project Kickoff, PRD Review & Formal SRS Specification
 - **Date**: November 20, 2026
-- **Time Dedicated**: 2 Hours (120 minutes)
 - **Status**: Completed
 
 #### Objectives & Work Completed:
 1. **Product Requirements Analysis**:
-   - Reviewed the core PRD document for the NEXORA Education ERP system.
-   - Identified the 4 core stakeholder personas: Administrator, Teacher/Faculty, Student, and Parent.
+   - Analyzed core operational workflows for the NEXORA Education ERP system.
+   - Defined role boundaries and permissions for four core user groups: Administrators, Faculty/Staff, Students, and Parents.
 2. **Software Requirements Specification (SRS)**:
    - Authored the formal IEEE 830-compliant SRS document (`docs/SRS.md`).
-   - Detailed functional requirements across 8 core modules:
-     - Authentication & RBAC
+   - Defined functional requirements across 8 core modules:
+     - Authentication & Role-Based Access Control (RBAC)
      - Institutional & Academic Structure
      - Student & Staff Lifecycle Management
-     - Daily Attendance Engine (<75% At-Risk alerts)
+     - Daily Attendance Engine (<75% threshold alerts)
      - Assignments & Submissions
      - Examinations & Gradebook
      - Fee Ledger & Receipt Generation
      - Reporting & Dashboard Analytics
-   - Defined non-functional requirements (security, latency benchmarks, data integrity).
-3. **Repository Initialization**:
-   - Created project repository structure (`/docs`, `/backend`, `/web`, `/mobile`).
-   - Configured root `.gitignore` covering Python, Node.js, Flutter, and environment secrets.
-   - Initialized Git version control system.
+   - Established non-functional requirements (security, latency benchmarks, data integrity).
+3. **Repository Architecture**:
+   - Structured multi-tier repository layout (`/docs`, `/backend`, `/web`, `/mobile`).
+   - Configured `.gitignore` covering Python, Node.js, Flutter, and environment configurations.
+   - Initialized Git version control.
 
 #### Key Architectural Decisions:
-- **Decision 1**: Adopt a Tri-Tier Decoupled Architecture. The FastAPI backend serves as the single centralized API engine for both the React Web ERP and the Flutter Mobile App.
-- **Decision 2**: Dual-database compatibility. Develop with PostgreSQL for production and support SQLite for zero-friction local development and automated testing.
+- **Architecture**: Decoupled Tri-Tier architecture with FastAPI as the centralized API gateway serving both React Web ERP and Flutter Mobile clients.
+- **Persistence**: Relational PostgreSQL database managed via SQLAlchemy 2.0 ORM with Alembic migration tracking.
 
-#### What to Show Sir for Day 1:
-- The completed IEEE 830 SRS Document (`docs/SRS.md`).
-- Initialized Git repository with clean commit history.
+#### Deliverables & Milestones:
+- Published IEEE 830 SRS Document (`docs/SRS.md`).
+- Clean repository baseline initialized with version control.
 
-#### Plan for Day 2:
-- Design the complete Relational Database Schema (ER Diagram) with all 14 tables, foreign key constraints, and index mappings.
+#### Next Session:
+- Relational Database Schema Design (ER Diagram) with entity relationships, foreign keys, and indexing strategy.

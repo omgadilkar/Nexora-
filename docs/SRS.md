@@ -26,7 +26,7 @@ The purpose of this document is to define the functional and non-functional requ
 
 ### 1.3 Intended Audience
 This document is prepared for:
-1. Academic Project Evaluators & Project Guides ("Sir") for review and verification of engineering rigor.
+1. Technical Stakeholders, Project Reviewers, and Evaluators reviewing engineering rigor.
 2. System Architects and Developers implementing the backend API, web frontend, and mobile application.
 3. Quality Assurance (QA) testers designing validation and integration test suites.
 4. Institutional Administrators reviewing functional scope.
