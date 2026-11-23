@@ -41,3 +41,37 @@ This log tracks architectural decisions, technical specifications, and developme
 
 #### Next Session:
 - Relational Database Schema Design (ER Diagram) with entity relationships, foreign keys, and indexing strategy.
+
+---
+
+### Session 2: Relational Database Schema & Entity-Relationship (ER) Architecture
+- **Date**: November 23, 2026
+- **Status**: Completed
+
+#### Objectives & Work Completed:
+1. **Third Normal Form (3NF) Relational Modeling**:
+   - Designed 14 normalized database tables across 6 functional domains:
+     - Identity & Access Management: `roles`, `users`
+     - Academic Hierarchy: `academic_years`, `classes`, `sections`, `subjects`, `teacher_subject_allocations`
+     - Profiles: `student_profiles`, `staff_profiles`
+     - Scheduling & Daily Attendance: `timetable_slots`, `attendance_sessions`, `attendance_records`
+     - Evaluations: `examinations`, `exam_schedules`, `exam_results`
+     - Finance: `fee_structures`, `student_fees`, `fee_payments`
+2. **Visual ER Diagram & Data Dictionary**:
+   - Built a comprehensive Mermaid Entity-Relationship diagram illustrating table linkages and Crow's foot cardinality (`docs/DATABASE_DESIGN.md`).
+   - Documented explicit column data types, nullability, constraints, primary keys, and foreign keys.
+3. **Data Integrity & Indexing Strategy**:
+   - Implemented cascading rules: `ON DELETE CASCADE` for tightly bound dependent records (attendance records), and `ON DELETE RESTRICT` for financial and historical student entities.
+   - Designed composite indexes for high-frequency queries (e.g., student attendance history, fee balances, and timetable schedules) to achieve sub-150ms latency.
+
+#### Key Architectural Decisions:
+- **Decoupled Auth & Profiles**: Kept authentication credentials in `users` isolated from demographic data in `student_profiles` and `staff_profiles` to prevent schema bloat and adhere to 3NF.
+- **Two-Tier Attendance Model**: Modeled attendance via `attendance_sessions` and `attendance_records` to eliminate data redundancy across class rosters.
+- **Financial Audit Safety**: Implemented immutable payment logs (`fee_payments`) with unique alphanumeric receipt numbers.
+
+#### Deliverables & Milestones:
+- Published Database Specification & Visual ER Architecture (`docs/DATABASE_DESIGN.md`).
+- Updated project documentation index (`README.md`).
+
+#### Next Session (Session 3):
+- Backend Foundation: Setup FastAPI application structure, virtual environment, `requirements.txt`, and Pydantic configuration (`.env`).
