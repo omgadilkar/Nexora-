@@ -97,4 +97,5 @@ NEXORA/
 
 ## 📄 Documentation
 - [Software Requirements Specification (SRS)](docs/SRS.md)
+- [Database Design & ER Architecture](docs/DATABASE_DESIGN.md)
 - [Daily Development Log](docs/project_diary.md)
