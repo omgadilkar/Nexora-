@@ -16,11 +16,12 @@ def test_root_endpoint():
 
 
 def test_health_check_endpoint():
-    """Verify system health endpoint returns operational status."""
+    """Verify system health endpoint returns operational status and database connection."""
     response = client.get("/api/v1/health/")
     assert response.status_code == 200
     data = response.json()
     assert data["status"] == "healthy"
+    assert data["database"] == "connected"
     assert data["version"] == "1.0.0"
     assert data["environment"] == "development"
     assert "timestamp" in data
