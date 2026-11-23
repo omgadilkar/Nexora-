@@ -106,3 +106,32 @@ This log tracks architectural decisions, technical specifications, and developme
 
 #### Next Session (Session 4):
 - Database Connection & Base ORM Model: Setup SQLAlchemy 2.0 database engine, session factory (`get_db`), Alembic migration environment, and base audit model (`created_at`, `updated_at`).
+
+---
+
+### Session 4: Database Connection Engine & SQLAlchemy 2.0 Base Model
+- **Date**: November 23, 2026
+- **Status**: Completed
+
+#### Objectives & Work Completed:
+1. **Database Session Manager (`backend/app/db/session.py`)**:
+   - Created SQLAlchemy database engine connected via `DATABASE_URL`.
+   - Built session factory (`SessionLocal`) and FastAPI dependency (`get_db`) that provides a transactional database session per request and cleanly closes it afterwards.
+2. **Base Declarative Model (`backend/app/db/base_class.py`)**:
+   - Defined custom `Base` class using modern SQLAlchemy 2.0 `DeclarativeBase`.
+   - Added automatic table naming logic (converts `StudentProfile` class into `student_profiles` table).
+   - Added audit columns (`created_at` and `updated_at`) automatically inherited by all future tables.
+3. **Automated Testing (`backend/tests/test_db.py`)**:
+   - Wrote unit tests verifying engine connectivity, table name generation, and session lifecycle.
+   - All 5 test cases passing (100% success rate).
+
+#### Key Architectural Decisions:
+- **Automatic Lifecycle Management**: Using FastAPI's `yield` dependency pattern in `get_db()` guarantees zero connection leaks even if an endpoint raises an unhandled exception.
+- **Unified Base Class**: Standardized timestamp fields across all tables ensure consistent auditing across academic and financial records.
+
+#### Deliverables & Milestones:
+- Working database connection engine and declarative base model.
+- 5/5 automated unit tests passing.
+
+#### Next Session (Session 5):
+- Alembic Database Migrations: Configure Alembic, generate the initial migration script, and create the database initialization seed script.
