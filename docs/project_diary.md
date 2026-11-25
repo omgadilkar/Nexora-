@@ -135,3 +135,63 @@ This log tracks architectural decisions, technical specifications, and developme
 
 #### Next Session (Session 5):
 - Alembic Database Migrations: Configure Alembic, generate the initial migration script, and create the database initialization seed script.
+
+---
+
+### Session 5: Alembic Database Migration Framework & Sprint 1 Completion
+- **Date**: November 24, 2026
+- **Status**: Completed (Sprint 1 Milestone Achieved)
+
+#### Objectives & Work Completed:
+1. **Alembic Migration Environment Setup**:
+   - Initialized migration tracking engine (`backend/alembic/` and `backend/alembic.ini`).
+   - Configured `alembic/env.py` to dynamically load `DATABASE_URL` from application settings and bind to `Base.metadata` for automated schema diffing.
+   - Configured SQLite batch mode (`render_as_batch=True`) for cross-database migration compatibility.
+2. **Database Initialization Helper (`backend/app/db/init_db.py`)**:
+   - Implemented `init_db()` to create and seed initial tables for automated testing and sandbox environments.
+3. **Automated Testing & Sprint 1 Verification**:
+   - Authored `backend/tests/test_alembic.py` verifying Alembic configuration loading and table creation lifecycle.
+   - All 7 test cases across database, migrations, and health endpoints passed successfully (1.38s).
+
+#### Sprint 1 Summary (Week 1 Achieved):
+- ✅ IEEE 830 Software Requirements Specification (`docs/SRS.md`).
+- ✅ 3NF Relational Database Schema & Visual ER Diagram (`docs/DATABASE_DESIGN.md`).
+- ✅ Modular FastAPI Application Structure with CORS and Live Swagger Documentation.
+- ✅ SQLAlchemy 2.0 Database Session Manager with automatic lifecycle closing.
+- ✅ Alembic Migration Framework for version-controlled database evolutions.
+
+#### Next Session (Sprint 2, Session 6 - Week 2 Kickoff):
+- Identity & User Models: Define SQLAlchemy models for `User` and `Role`, implement password hashing via bcrypt, and create registration/login Pydantic validation schemas.
+
+---
+
+## 🗓️ Sprint 2: Identity, Authentication & Role-Based Access Control
+
+### Session 6: User & Role Database Models + Bcrypt Password Security
+- **Date**: November 24, 2026
+- **Status**: Completed
+
+#### Objectives & Work Completed:
+1. **Password Hashing & Security Engine (`backend/app/core/security.py`)**:
+   - Implemented `verify_password()` and `get_password_hash()` utilizing bcrypt algorithm with adaptive work factors.
+   - Enforced rule that plaintext passwords must never be stored in the database or exposed via logs.
+2. **Database Models for Identity (`backend/app/models/`)**:
+   - `Role` model: Defines system roles (`ADMIN`, `TEACHER`, `STUDENT`, `PARENT`).
+   - `User` model: Stores credentials, names, contact numbers, active status, and links to `role_id` via foreign key.
+   - Mapped bidirectional relationship between `Role` and `User`.
+3. **Data Transfer Validation Schemas (`backend/app/schemas/user.py`)**:
+   - Implemented Pydantic models for request validation (`UserCreate`) and sanitized output (`UserRead`) that strictly prevents leaking password hashes over the API.
+4. **Automated Unit Testing (`backend/tests/test_user_model.py`)**:
+   - Wrote unit tests verifying bcrypt hashing, user creation in the database, role relationships, and schema validation.
+   - All 9 unit tests passing (100% success rate).
+
+#### Key Architectural Decisions:
+- **Zero-Exposure Policy**: Kept `hashed_password` completely excluded from all client-facing Pydantic DTOs (`UserRead`).
+- **Normalized Roles**: Standardized system roles into an independent relational table rather than hardcoded string enums to support future custom institutional permissions.
+
+#### Deliverables & Milestones:
+- Operational `User` and `Role` database models with bcrypt hashing utilities.
+- 9 passing automated unit tests.
+
+#### Next Session (Session 7):
+- JWT Security Utilities: Implement JWT Access Token creation with expiration timestamps, token decoding, and signature verification.
