@@ -195,3 +195,30 @@ This log tracks architectural decisions, technical specifications, and developme
 
 #### Next Session (Session 7):
 - JWT Security Utilities: Implement JWT Access Token creation with expiration timestamps, token decoding, and signature verification.
+
+---
+
+### Session 7: JWT (JSON Web Token) Security Framework
+- **Date**: November 25, 2026
+- **Status**: Completed
+
+#### Objectives & Work Completed:
+1. **Cryptographic Token Generator (`backend/app/core/security.py`)**:
+   - Implemented `create_access_token()` stamping user ID (`sub`), role scope (`role`), issued-at (`iat`), and expiration (`exp`) signed via HS256 algorithm.
+   - Implemented `decode_access_token()` providing cryptographic signature validation against application `SECRET_KEY`.
+2. **Authentication DTO Schemas (`backend/app/schemas/token.py`)**:
+   - Modeled `Token` (Bearer token response model for React/Flutter clients) and `TokenPayload` for internal token inspection.
+3. **Automated Unit Testing (`backend/tests/test_jwt.py`)**:
+   - Wrote comprehensive test cases covering valid token issuance, decoding integrity, forged/tampered signature rejection, and expired token detection.
+   - All 12 unit tests passing (100% success rate).
+
+#### Key Architectural Decisions:
+- **Stateless Authentication**: Using self-contained JWT tokens eliminates the need for expensive database lookups on every single authenticated HTTP request.
+- **Embedded Role Scopes**: Embedding user role (`ADMIN`, `TEACHER`, etc.) inside the cryptographically signed JWT payload allows instant permission checks without extra database queries.
+
+#### Deliverables & Milestones:
+- Operational JWT access token creation and decoding framework.
+- 12 passing unit tests across database, models, and authentication security.
+
+#### Next Session (Session 8):
+- User Login API Endpoint: Implement `POST /api/v1/auth/login` endpoint accepting credentials, validating password with bcrypt, and issuing JWT tokens.
