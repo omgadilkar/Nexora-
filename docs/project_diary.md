@@ -222,3 +222,32 @@ This log tracks architectural decisions, technical specifications, and developme
 
 #### Next Session (Session 8):
 - User Login API Endpoint: Implement `POST /api/v1/auth/login` endpoint accepting credentials, validating password with bcrypt, and issuing JWT tokens.
+
+---
+
+### Session 8: Authentication Endpoint (`/api/v1/auth/login`)
+- **Date**: November 26, 2026
+- **Status**: Completed
+
+#### Objectives & Work Completed:
+1. **OAuth2 Password Login Endpoint (`backend/app/api/v1/endpoints/auth.py`)**:
+   - Implemented `POST /api/v1/auth/login` accepting OAuth2 standard credentials (`username` as email and `password`).
+   - Validated email existence and bcrypt password hash verification.
+   - Enforced account status check preventing inactive users from authenticating.
+   - Returned signed JWT access token formatted as a standard Bearer token.
+2. **API Routing Gateway Integration (`backend/app/api/v1/api.py`)**:
+   - Registered `auth.router` under `/api/v1/auth` with OpenAPI tag `"Authentication"`.
+3. **Automated Unit Testing (`backend/tests/test_auth_login.py`)**:
+   - Tested 4 authentication scenarios: successful login with token verification, incorrect password rejection, non-existent user handling, and inactive account blocking.
+   - All 16 unit tests passing (100% success rate).
+
+#### Key Architectural Decisions:
+- **Standardized OAuth2 Password Flow**: Utilizing `OAuth2PasswordRequestForm` ensures seamless compatibility with Swagger UI's interactive "Authorize" lock and client HTTP libraries.
+- **Ambiguous Error Messages**: Used uniform `"Incorrect email or password"` error message for both non-existent users and wrong passwords to protect against user enumeration attacks.
+
+#### Deliverables & Milestones:
+- Operational `/api/v1/auth/login` API endpoint.
+- 16 passing automated unit tests across database, models, JWT, and authentication.
+
+#### Next Session (Session 9):
+- Role-Based Access Control (RBAC) & Route Protection: Implement `get_current_user` and role-checker dependencies (`require_role(["ADMIN"])`) to secure endpoints.
