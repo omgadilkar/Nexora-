@@ -1,7 +1,8 @@
 from fastapi import APIRouter
-from app.api.v1.endpoints import health
+from app.api.v1.endpoints import health, auth
 
 api_router = APIRouter()
 
 # Register modular sub-routers
 api_router.include_router(health.router, prefix="/health", tags=["System Health"])
+api_router.include_router(auth.router, prefix="/auth", tags=["Authentication"])
