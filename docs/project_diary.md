@@ -251,3 +251,34 @@ This log tracks architectural decisions, technical specifications, and developme
 
 #### Next Session (Session 9):
 - Role-Based Access Control (RBAC) & Route Protection: Implement `get_current_user` and role-checker dependencies (`require_role(["ADMIN"])`) to secure endpoints.
+
+---
+
+### Session 9: Role-Based Access Control (RBAC) & Route Protection
+- **Date**: November 26, 2026
+- **Status**: Completed
+
+#### Objectives & Work Completed:
+1. **Authentication & Identity Dependency (`backend/app/api/deps.py`)**:
+   - Implemented `get_current_user` dependency extracting and cryptographically verifying Bearer JWT tokens from HTTP Authorization headers.
+   - Enforced database user existence check and account active state verification.
+2. **Role-Based Access Control Factory (`require_role`)**:
+   - Implemented higher-order dependency `require_role(allowed_roles)` providing strict authorization gates.
+   - Returns HTTP 403 Forbidden if a user attempts to access resources outside their permitted role scopes.
+3. **Protected API Endpoints (`backend/app/api/v1/endpoints/auth.py`)**:
+   - Implemented `GET /api/v1/auth/me` returning sanitized profile info for the currently logged-in user.
+   - Implemented `GET /api/v1/auth/admin-only` demonstrating role restriction.
+4. **Automated Unit Testing (`backend/tests/test_rbac.py`)**:
+   - Tested 4 security scenarios: authenticated profile retrieval (200), unauthenticated rejection (401), admin access granting (200), and unauthorized role blockage (403 Forbidden).
+   - All 20 unit tests passing (100% success rate).
+
+#### Key Architectural Decisions:
+- **FastAPI Dependency Injection**: Using reusable dependencies (`Depends(get_current_user)`) ensures route protection is declarative, clean, and impossible to bypass.
+- **Principle of Least Privilege**: Users are granted access only to routes matching their explicit role enum, protecting sensitive management and financial data from students/parents.
+
+#### Deliverables & Milestones:
+- Operational security dependencies (`get_current_user`, `require_role`) and protected routes.
+- 20 passing unit tests across database, models, JWT, login, and RBAC.
+
+#### Next Session (Session 10 - Week 2 Milestone):
+- Database Seeding & Week 2 Completion: Create automated database seed script (`seed_data.py`) populating initial Admin, Teacher, and Student accounts, and finalize Week 2 testing.
